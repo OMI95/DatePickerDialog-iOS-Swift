@@ -107,11 +107,20 @@ open class DatePickerDialog: UIView {
         if let locale = self.locale { self.datePicker.locale = locale }
 
         /* Add dialog to main window */
-        guard let appDelegate = UIApplication.shared.delegate else { fatalError() }
-        guard let window = appDelegate.window else { fatalError() }
-        window?.addSubview(self)
-        window?.bringSubviewToFront(self)
-        window?.endEditing(true)
+        if #available(iOS 13.0, *) {
+            if let currentWindowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                guard let window = currentWindowScene.windows.first else { fatalError() }
+                window.addSubview(self)
+                window.bringSubviewToFront(self)
+                window.endEditing(true)
+            }
+        } else {
+            guard let appDelegate = UIApplication.shared.delegate else { fatalError() }
+            guard let window = appDelegate.window else { fatalError() }
+            window?.addSubview(self)
+            window?.bringSubviewToFront(self)
+            window?.endEditing(true)
+        }
 
         NotificationCenter.default.addObserver(
             self,

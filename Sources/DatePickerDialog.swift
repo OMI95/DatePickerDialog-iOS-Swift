@@ -31,11 +31,13 @@ open class DatePickerDialog: UIView {
 
     private var textColor: UIColor!
     private var buttonColor: UIColor!
+    private var cancelBtnColor: UIColor!
     private var font: UIFont!
 
     // MARK: - Dialog initialization
     @objc public init(textColor: UIColor = UIColor.black,
-                buttonColor: UIColor = UIColor.blue,
+                buttonColor: UIColor = #colorLiteral(red: 0.003921568627, green: 0.6705882353, blue: 0.8705882353, alpha: 1),
+                cancelBtnColor: UIColor = #colorLiteral(red: 0.4040389657, green: 0.3917741179, blue: 0.3955075741, alpha: 1),
                 font: UIFont = .boldSystemFont(ofSize: 15),
                 locale: Locale? = nil,
                 showCancelButton: Bool = true) {
@@ -281,8 +283,8 @@ open class DatePickerDialog: UIView {
         if showCancelButton {
             self.cancelButton = UIButton(type: .custom) as UIButton
             self.cancelButton.frame = isLeftToRightDirection ? leftButtonFrame : rightButtonFrame
-            self.cancelButton.setTitleColor(self.buttonColor, for: .normal)
-            self.cancelButton.setTitleColor(self.buttonColor, for: .highlighted)
+            self.cancelButton.setTitleColor(self.cancelBtnColor, for: .normal)
+            self.cancelButton.setTitleColor(self.cancelBtnColor, for: .highlighted)
             self.cancelButton.titleLabel?.font = self.font.withSize(14)
             self.cancelButton.layer.cornerRadius = kCornerRadius
             self.cancelButton.addTarget(self, action: .buttonTapped, for: .touchUpInside)
